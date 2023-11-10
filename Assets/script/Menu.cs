@@ -1,6 +1,8 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +24,7 @@ public class Menu : MonoBehaviour
     private bool IsGameStarted;
     private bool isEdit;
 
-
+    public string fileName = "default";
     private void Start()
     {
         IsGameStarted = false;
@@ -30,7 +32,7 @@ public class Menu : MonoBehaviour
     }
     void Update()
     {
-        if(!IsGameStarted)
+        if (!IsGameStarted && (player.transform.position.y == 1.3f))
         {
             if (Input.anyKeyDown)
             {
@@ -39,15 +41,12 @@ public class Menu : MonoBehaviour
                 startText.SetActive(false);
                 IsGameStarted = true;
                 mainCam.transform.SetParent(player.transform, true);
-
             }
-        }
-
-        
+        } 
     }
 
     //메인메뉴 페이지 상호작용
-    public void clickedCustomBtn()
+    public void ClickedCustomBtn()
     {
         gameTitle.SetActive(false);
         mainMenu.SetActive(false);
@@ -61,17 +60,17 @@ public class Menu : MonoBehaviour
         customCam.SetActive(true);
     }
 
-    public void clicekedExitBtn()
+    public void ClicekedExitBtn()
     {
         Application.Quit();
     }
     //커스텀 페이지 메뉴 상호작용
 
-    public void clickedCustomEditBtn()
+    public void ClickedCustomEditBtn()
     {
-        setEdit(true);
+        SetEdit(true);
     }
-    public void clickedBackBtn()
+    public void ClickedBackBtn()
     {
         if (isEdit)
         {
@@ -91,25 +90,26 @@ public class Menu : MonoBehaviour
             customCam.SetActive(false);
         }
     }
-    private void setEdit(bool _isEdit)
+
+    private void SetEdit(bool _isEdit)
     {
         isEdit = _isEdit;
     }
-    public void clickedCustomYes()
+    public void CustomYes()
     {
-        setEdit(false);
+        SetEdit(false);
         savingPanel.SetActive(false);
-        clickedBackBtn();
+        ClickedBackBtn();
     }
 
-    public void clickedCustomNo()
+    public void CustomNo()
     {
-        setEdit(false);
+        SetEdit(false);
         savingPanel.SetActive(false);
-        clickedBackBtn();
+        ClickedBackBtn();
     }
 
-    public void readyToEdit()
+    public void ToEdit()
     {
         customPage.SetActive(false);
         editPage.SetActive(true);
